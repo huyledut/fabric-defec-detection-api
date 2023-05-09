@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 model = get_yolov5()
 
 app = FastAPI(
-    title="Custom YOLOV5 Machine Learning API",
+    title="DUT-CAPSTONE-PROJECT",
     description="""Obtain object value out of image
                     and return image and json result""",
     version="0.0.1",
@@ -31,12 +31,12 @@ app.add_middleware(
 )
 
 
-@app.get('/notify/v1/health')
+@app.get('api/v1/health')
 def get_health():
     return dict(msg='OK')
 
 
-@app.post("/object-to-json")
+@app.post("api/v1/object-to-json")
 async def detect_return_json_result(file: bytes = File(...)):
     input_image = get_image_from_bytes(file, max_size=640)
     results = model(input_image, size=640)
@@ -45,7 +45,7 @@ async def detect_return_json_result(file: bytes = File(...)):
     return {"result": detect_res}
 
 
-@app.post("/object-to-img")
+@app.post("api/v1/object-to-img")
 async def detect_return_base64_img(file: bytes = File(...)):
     input_image = get_image_from_bytes(file, max_size=640)
     results = model(input_image)
