@@ -31,21 +31,22 @@ app.add_middleware(
 )
 
 
-@app.get('api/v1/health')
+@app.get('/api/v1/health')
 def get_health():
     return dict(msg='OK')
 
 
-@app.post("api/v1/object-to-json")
+@app.post("/api/v1/object-to-json")
 async def detect_return_json_result(file: bytes = File(...)):
     input_image = get_image_from_bytes(file, max_size=640)
     results = model(input_image, size=640)
+    print(results.xyxy)
     detect_res = results.pandas().xyxy[0].to_json(orient="records")  # JSON img1 predictions
     detect_res = json.loads(detect_res)
     return {"result": detect_res}
 
 
-@app.post("api/v1/object-to-img")
+@app.post("/api/v1/object-to-img")
 async def detect_return_base64_img(file: bytes = File(...)):
     input_image = get_image_from_bytes(file, max_size=640)
     results = model(input_image)

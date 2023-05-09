@@ -5,7 +5,8 @@ import io
 
 def get_yolov5():
     torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = torch.hub.load('./yolov5',model= 'custom', path='./models/fabric_defect_4.pt', source= 'local')
+    # model = torch.hub.load('./yolov5',model= 'custom', path='./models/fabric_defect_4.pt', source= 'local')
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='./models/fabric_defect_4.pt')
     model.conf = 0.5
     return model
 
