@@ -1,28 +1,53 @@
 #include <Arduino.h>
 
-int Sensor = A0;
-int Value;
-int Ledpin = 13;
+int step = 4;
+int dir = 5;
+int ena = 8;
+int sensor = A0;
+int value;
 
-void setup() 
+void setup()
 {
   Serial.begin(9600);
-  pinMode(Ledpin, OUTPUT); 
-  digitalWrite(Ledpin, LOW); 
-  pinMode(Sensor, INPUT);
+
+  // motor
+  pinMode(ena, OUTPUT);
+  pinMode(step, OUTPUT);
+  pinMode(dir, OUTPUT);
+  digitalWrite(ena, LOW);
+
+  // sensor
+  pinMode(sensor, INPUT);
 }
 
-void loop() 
+void loop()
 {
-  Value = analogRead(Sensor);
-  Serial.print("Value read from sensor: ");
-  Serial.println(Value);
 
-  if (Value >= 200)
-    digitalWrite(Ledpin, HIGH);
-  else 
-    digitalWrite(Ledpin, LOW); 
-    
-  delay(1000);
+  value = analogRead(sensor);
+  Serial.print("Value read from sensor:");
+  Serial.println(value);
+
+  if (value < 150)
+  {
+    digitalWrite(dir, HIGH);
+    for (int x = 0; x < 1000; x++)
+    {
+      digitalWrite(step, HIGH);
+      delayMicroseconds(500);
+      digitalWrite(step, LOW);
+      delayMicroseconds(500);
+    }
+
+    delay(1000);
+
+    digitalWrite(dir, LOW);
+    for (int x = 0; x < 1000; x++)
+    {
+      digitalWrite(step, HIGH);
+      delayMicroseconds(500);
+      digitalWrite(step, LOW);
+      delayMicroseconds(500);
+    }
+    delay(1000);
+  }
 }
- 

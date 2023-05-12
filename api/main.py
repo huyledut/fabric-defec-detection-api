@@ -43,7 +43,7 @@ async def detect_return_json_result(file: bytes = File(...)):
     print(results.xyxy)
     detect_res = results.pandas().xyxy[0].to_json(orient="records")  # JSON img1 predictions
     detect_res = json.loads(detect_res)
-    return {"result": detect_res}
+    return detect_res
 
 
 @app.post("/api/v1/object-to-img")
