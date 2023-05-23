@@ -8,6 +8,7 @@ int sensor = A0;
 int value;
 
 String data;
+bool isStart = false;
 
 void setup()
 {
@@ -25,72 +26,62 @@ void setup()
 
 void loop()
 {
-  value = analogRead(sensor);
-  Serial.print("Value read from sensor:");
-  Serial.println(value);
-
-  if (value > 350)
+  if (!isStart)
   {
-    delay(1000);
-
-    digitalWrite(dir, HIGH);
-    for (int x = 0; x < 1000; x++)
+    if (Serial.available())
     {
-      digitalWrite(step, HIGH);
-      delayMicroseconds(500);
-      digitalWrite(step, LOW);
-      delayMicroseconds(500);
-    }
-    Serial.println("A");
-    while (true)
-    {
-      if (Serial.available() > 0)
+      data = Serial.readString();
+      if (data == "Start")
       {
-        data = Serial.readString();
-        if (data == "B")
-        {
-          digitalWrite(dir, LOW);
-          for (int x = 0; x < 1000; x++)
-          {
-            digitalWrite(step, HIGH);
-            delayMicroseconds(500);
-            digitalWrite(step, LOW);
-            delayMicroseconds(500);
-          }
-          break;
-        }
+        isStart = true;
+        Serial.println("Started");
       }
+      delay(1000);
     }
+  }
+  else
+  {
+    // send Value read from sensor
+    value = analogRead(sensor);
+    Serial.print("Value read from sensor:");
+    Serial.println(value);
 
-    delay(1000);
+    if (value > 350)
+    {
+      // move 6 steps
+      digitalWrite(dir, HIGH);
+      for (int x = 0; x < 1200; x++)
+      {
+        digitalWrite(step, HIGH);
+        delayMicroseconds(2000);
+        digitalWrite(step, LOW);
+        delayMicroseconds(2000);
+      }
 
-    // if (Serial.available() > 0)
-    // {
-    //   data = Serial.readString();
-    //   if (data == "B")
-    //   {
-    //     digitalWrite(dir, LOW);
-    //     for (int x = 0; x < 1000; x++)
-    //     {
-    //       digitalWrite(step, HIGH);
-    //       delayMicroseconds(500);
-    //       digitalWrite(step, LOW);
-    //       delayMicroseconds(500);
-    //     }
-    //     delay(1000);
-    //   }
-    // }
-    // else
-    // {
-    //   digitalWrite(dir, LOW);
-    //   for (int x = 0; x < 1000; x++)
-    //   {
-    //     digitalWrite(step, HIGH);
-    //     delayMicroseconds(1500);
-    //     digitalWrite(step, LOW);
-    //     delayMicroseconds(1500);
-    //   }
-    //   delay(1000);
-    // }
+      delay(1000);
+      while (true)
+      {
+        Serial.println("A");
+        if (Serial.available() > 0)
+        {
+          data = Serial.readString();
+          if (data == "B")
+          {
+            digitalWrite(dir, LOW);
+            for (int x = 0; x < 1200; x++)
+            {
+              digitalWrite(step, HIGH);
+              delayMicroseconds(2000);
+              digitalWrite(step, LOW);
+              delayMicroseconds(2000);
+            }
+            delay(2000);
+            break;
+          }
+        }
+        delay(1000);
+      }
+      delay(1000);
+    }
   }
 }
