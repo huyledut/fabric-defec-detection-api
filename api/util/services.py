@@ -1,15 +1,23 @@
 import torch
 from PIL import Image
 import io
+from helper.segment.predict import run
+from pathlib import Path
+from helper.models.common import DetectMultiBackend
 
-
-def get_yolov5():
+def load_yolov5_obj():
     torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    # model = torch.hub.load('./yolov5',model= 'custom', path='./models/fabric_defect_4.pt', source= 'local')
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='./models/fabric_defect_4.pt')
-    model.conf = 0.10
+    model = torch.hub.load('helper',model= 'custom', path='./models/obj-v2', source= 'local')
+    model.conf = 0.20
     return model
 
+def load_model_seg():
+    weights = 'models/seg-v1.pt'
+    data = 'util/dataset.yaml'
+    return DetectMultiBackend(weights=weights, data=data)
+
+def seg_run(model, name='result', weights = './models/seg-v1.pt', source = 'image.jpg', project= Path.cwd()):
+    run(weights=weights, source=source, data='', name=name, project=project, save_txt=True, save_conf=True, exist_ok=True, model=model)
 
 def get_image_from_bytes(binary_image, max_size=1024):
     input_image = Image.open(io.BytesIO(binary_image)).convert("RGB")
@@ -22,3 +30,8 @@ def get_image_from_bytes(binary_image, max_size=1024):
         )
     )
     return resized_image
+
+def save_uploaded_image(image_bytes):
+    file_path = "images/request.jpg"
+    with open(file_path, "wb") as f:
+        f.write(image_bytes)
