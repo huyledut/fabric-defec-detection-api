@@ -4,6 +4,7 @@ import io
 from helper.segment.predict import run
 from pathlib import Path
 from helper.models.common import DetectMultiBackend
+import os
 
 def load_yolov5_obj():
     torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -17,6 +18,8 @@ def load_model_seg():
     return DetectMultiBackend(weights=weights, data=data)
 
 def seg_run(model, name='result', weights = './models/seg-v1.pt', source = 'image.jpg', project= Path.cwd()):
+    if os.path.exists('result/labels/request.txt'):
+        os.remove('result/labels/request.txt')
     run(weights=weights, source=source, data='', name=name, project=project, save_txt=True, save_conf=True, exist_ok=True, model=model)
     merge_images()
 

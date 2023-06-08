@@ -7,6 +7,7 @@ from PIL import Image
 import json
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+import os
 
 obj_model = load_yolov5_obj()
 seg_model = load_model_seg()
@@ -94,14 +95,15 @@ async def instance_segmentation_return_for_client(file: bytes = File(...)):
 
     with open('result/labels/request.txt', 'r') as lbl_file:
         label_data = lbl_file.readlines()
-    detections = []
-    for line in label_data:
-        data= line.strip().split()
-        object_info = {
-            "class_id": data[0],
-            "conf": data[-1]
-        }
-    detections.append(object_info)
+        detections = []
+        for line in label_data:
+            data= line.strip().split()
+            object_info = {
+                "class_id": data[0],
+                "conf": data[-1]
+            }
+            detections.append(object_info)
+        lbl_file.close()
     with open('output_image.jpg', 'rb') as img_file:
         image_data = img_file.read()
 
