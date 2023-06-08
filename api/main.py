@@ -80,13 +80,15 @@ async def object_detection_return_for_client(file: bytes = File(...)):
 
 @app.post("/api/v1/instance-segmentation/to-img")
 async def instance_segmentation_return_image(file: bytes = File(...)):
+    input_image = get_image_from_bytes(file, max_size=640)
     save_uploaded_image(file)
     seg_run(source="images/request.jpg", model=seg_model)
-    result = 'result/request.jpg'
+    result = 'output_image.jpg'
     return FileResponse(result, media_type="image/jpeg")
 
-@app.post("/api/v1/instance_segmentation/client")
+@app.post("/api/v1/instance-segmentation/client")
 async def instance_segmentation_return_for_client(file: bytes = File(...)):
+    input_image = get_image_from_bytes(file, max_size=640)
     save_uploaded_image(file)
     seg_run(source="images/request.jpg", model=seg_model)
 
@@ -100,8 +102,7 @@ async def instance_segmentation_return_for_client(file: bytes = File(...)):
             "conf": data[-1]
         }
     detections.append(object_info)
-
-    with open('result/request.jpg', 'rb') as img_file:
+    with open('output_image.jpg', 'rb') as img_file:
         image_data = img_file.read()
 
     response = {

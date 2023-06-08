@@ -6,7 +6,7 @@ import requests
 from PIL import Image
 
 
-DETECTION_URL = 'http://127.0.0.1:8000/api/v1/instance_segmentation/client'
+DETECTION_URL = 'http://127.0.0.1:8000/api/v1/instance-segmentation/client'
 IMAGE = 'images/image.jpg'
 
 image = cv2.imread(IMAGE)
