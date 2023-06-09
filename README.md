@@ -2,6 +2,7 @@
 
 ## Introduction
 
+![The Fabric Defect Detection System](./api/images/backgorud.jpg)
 The Fabric Defect Detection System is an application developed to automatically detect and recognize defects that may appear on the surface of fabric panels. This system utilizes artificial intelligence and deep learning technologies to process images and identify flaws such as holes, stains, knot, line.
 
 ## Features
@@ -10,6 +11,7 @@ The Fabric Defect Detection System is an application developed to automatically 
 - YOLOv5s Segmentation: The system utilizes YOLOv5s, a state-of-the-art object detection and segmentation algorithm, to detect and segment fabric defects.
 - Python and C++: The system leverages the power of both Python and C++ programming languages for different components of the application.
 - Efficient and Accurate: The combination of FastAPI, YOLOv5s, and the use of Python and C++ ensures a highly efficient and accurate defect detection system for fabric panels.
+  ![Instance Segmentation](./api/images/introview.jpg)
 
 ## Hardware Requirements
 
