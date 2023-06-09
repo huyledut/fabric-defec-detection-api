@@ -53,9 +53,3 @@ Contributions to this project are highly appreciated. If you encounter any issue
 ## Contact
 
 If you have any questions or inquiries, please contact huyledut@gmail.com.
-
-# Fabric Defect Detection System - README File
-
-## Introduction
-
-The Fabric Defect Detection System is an application developed to automatically detect and recognize defects that may appear on the surface of fabric panels. This system utilizes advanced technologies such as FastAPI, YOLOv5s segmentation, Python, and C++ to provide efficient and accurate defect detection capabilities.
