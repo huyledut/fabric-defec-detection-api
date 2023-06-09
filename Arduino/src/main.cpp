@@ -53,9 +53,9 @@ void loop()
       for (int x = 0; x < 1200; x++)
       {
         digitalWrite(step, HIGH);
-        delayMicroseconds(2000);
+        delayMicroseconds(2100);
         digitalWrite(step, LOW);
-        delayMicroseconds(2000);
+        delayMicroseconds(2100);
       }
 
       delay(1000);
@@ -71,9 +71,9 @@ void loop()
             for (int x = 0; x < 1200; x++)
             {
               digitalWrite(step, HIGH);
-              delayMicroseconds(2000);
+              delayMicroseconds(2100);
               digitalWrite(step, LOW);
-              delayMicroseconds(2000);
+              delayMicroseconds(2100);
             }
             delay(2000);
             break;

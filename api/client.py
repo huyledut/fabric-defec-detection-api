@@ -6,7 +6,7 @@ import requests
 from PIL import Image
 
 
-DETECTION_URL = 'http://127.0.0.1:8000/api/v1/instance-segmentation/client'
+DETECTION_URL = 'https://c82d-2402-800-6294-3859-4896-a912-7627-a253.ngrok-free.appapi/v1/instance-segmentation/client'
 IMAGE = 'images/image.jpg'
 
 image = cv2.imread(IMAGE)
