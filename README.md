@@ -4,7 +4,8 @@
 
 ![The Fabric Defect Detection System](./api/images/backgorud.jpg)
 The Fabric Defect Detection System is an application developed to automatically detect and recognize defects that may appear on the surface of fabric panels. This system utilizes artificial intelligence and deep learning technologies to process images and identify flaws such as holes, stains, knot, line.
-![The Fabric Defect Detection System](introview.mp4)
+![The Fabric Defect Detection System](./api/images/S%C6%A1%20%C4%91%E1%BB%93%20h%E1%BB%87%20th%E1%BB%91ng%20BKDN.jpg)
+
 ## Features
 
 - FastAPI: The system is built using FastAPI, a modern, fast (high-performance), web framework for building APIs with Python.
