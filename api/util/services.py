@@ -20,7 +20,7 @@ def load_model_seg():
 def seg_run(model, name='result', weights = './models/seg-v1.pt', source = 'image.jpg', project= Path.cwd()):
     if os.path.exists('result/labels/request.txt'):
         os.remove('result/labels/request.txt')
-    run(weights=weights, source=source, data='', name=name, project=project, save_txt=True, save_conf=True, exist_ok=True, model=model, conf_thres=0.2)
+    run(weights=weights, source=source, data='', name=name, project=project, save_txt=True, save_conf=True, exist_ok=True, model=model, conf_thres=0.25)
     merge_images()
 
 def get_image_from_bytes(binary_image, max_size=1024):
